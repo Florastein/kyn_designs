@@ -7,51 +7,73 @@ class Services extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 30, left: 80),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Elevate Your Brand \nwith KYN Designs",
-                    style: GoogleFonts.poppins(
-                        fontSize: 48, fontWeight: FontWeight.w800),
-                  ),
-                  SizedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 50),
-                      child: Text(
-                          "A journey fueled by passion since 2015, KYN Designs and Technologies began with a \nvision to transform ideas into stunning visuals, Our Founder, driven by creativity and \n and a commitment to quality, established a team that thrives on innovation\nand customer satisfaction, ensuring every project stands out."),
+        padding: EdgeInsets.only(top: 30, left: 80),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Elevate Your Brand \nwith KYN Designs",
+                      style: GoogleFonts.poppins(
+                          fontSize: 48, fontWeight: FontWeight.w800),
                     ),
-                  ),
-                  SizedBox(
-                    height: 300,
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(5)),
+                    SizedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10, left: 50),
+                        child: Text(
+                            "A journey fueled by passion since 2015, KYN Designs and Technologies began with a \nvision to transform ideas into stunning visuals, Our Founder, driven by creativity and \n and a commitment to quality, established a team that thrives on innovation\nand customer satisfaction, ensuring every project stands out."),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Text(
+                          "Get Started",
+                          style: GoogleFonts.poppins(
+                              color: Colors.white, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: "E-mail",
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add submit functionality here
+                      },
+                      style:
+                          ElevatedButton.styleFrom(backgroundColor: Colors.red),
                       child: Text(
-                        "Get Started",
+                        "Subscribe",
                         style: GoogleFonts.poppins(
                             color: Colors.white, fontWeight: FontWeight.w600),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          )
-        ],
-      ),
-    );
+                    )
+                  ],
+                )
+              ],
+            ),
+          ],
+        ));
   }
 }
 
