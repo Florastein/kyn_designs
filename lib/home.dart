@@ -719,10 +719,9 @@ class HomePage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   TopMan(),
                   Services(),
-                  SizedBox(height: 100),
                 ],
               ),
             ),
