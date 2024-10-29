@@ -435,23 +435,23 @@ class _TopManState extends State<TopMan> {
   }
 }*/
 
-import 'dart:developer';
 import 'dart:ui';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kyn_designs/custom/custom_button.dart';
 import 'package:kyn_designs/custom/main_body.dart';
+import 'package:kyn_designs/footer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Stack(
+    return Scaffold(
+      body: const Stack(
         children: [
-          const Positioned(
+          Positioned(
             top: 0,
             left: 0,
             right: 0,
@@ -461,11 +461,29 @@ class HomePage extends StatelessWidget {
             padding: EdgeInsets.only(top: 100),
             child: SingleChildScrollView(
               child: Column(
-                children: [TopMan(), Services()],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TopMan(),
+                  Services(),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Footer(),
+                ],
               ),
             ),
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print("Hello World");
+        },
+        backgroundColor: Colors.orange,
+        child: const Icon(
+          Icons.message,
+          color: Colors.white,
+        ), // Optional icon for the button
       ),
     );
   }
