@@ -292,10 +292,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kyn_designs/custom/custom_text_box.dart';
 import 'package:kyn_designs/custom/navbar.dart';
+import 'package:kyn_designs/login_page.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -313,13 +319,32 @@ class SignUp extends StatelessWidget {
   }
 }
 
-class Logger extends StatelessWidget {
+class Logger extends StatefulWidget {
   const Logger({super.key});
+
+  @override
+  State<Logger> createState() => _LoggerState();
+}
+
+class _LoggerState extends State<Logger> {
+  String _password = '';
+  String _confirmPassword = '';
+  String _errorMessage = '';
+
+  void _validatePassword() {
+    setState(() {
+      if (_password != _confirmPassword) {
+        _errorMessage = 'Passwords do not match';
+      } else {
+        _errorMessage = '';
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8, // Constrain width
+      width: MediaQuery.of(context).size.width * 0.25, // Constrain width
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -343,15 +368,19 @@ class Logger extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.25,
             ),
           ),
-          const SizedBox(height: 20),
           Text(
             "REGISTER",
             style: GoogleFonts.montserrat(
-                fontSize: 48, fontWeight: FontWeight.w600),
+                fontSize: 32, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 10), // Add space between fields
           CustomTextBox(hintText: "Username", icon: CupertinoIcons.person_alt),
           const SizedBox(height: 10), // Space between fields
+          CustomTextBox(
+              hintText: "Full Name", icon: CupertinoIcons.person_2_fill),
+          SizedBox(
+            height: 10,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -366,25 +395,45 @@ class Logger extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          SizedBox(
+            height: 10,
+          ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Don't Have An Account?",
-                style: GoogleFonts.poppins(),
+              Expanded(
+                child: CustomTextBox(
+                  isPassword: true,
+                  hintText: "Password",
+                  icon: CupertinoIcons.lock_shield_fill,
+                  onChanged: (value) {
+                    _password = value;
+                    _validatePassword();
+                  },
+                ),
               ),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Register Now",
-                  style: GoogleFonts.poppins(
-                      color: Colors.orange, fontWeight: FontWeight.bold),
+              const SizedBox(width: 10), // Space between fields
+              Expanded(
+                child: CustomTextBox(
+                  isPassword: true,
+                  hintText: "Confirm Password",
+                  icon: CupertinoIcons.lock_shield_fill,
+                  onChanged: (value) {
+                    _confirmPassword = value;
+                    _validatePassword();
+                  },
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 25),
+          if (_errorMessage.isNotEmpty) // Show error message if needed
+            Text(
+              _errorMessage,
+              style: TextStyle(color: Colors.red),
+            ),
+
+          const SizedBox(height: 20),
+
           Align(
             alignment: Alignment.center,
             child: GestureDetector(
@@ -395,20 +444,40 @@ class Logger extends StatelessWidget {
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                width: MediaQuery.of(context).size.width * 0.4, // Adjust width
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.phone, color: Colors.white),
-                    const SizedBox(width: 8),
-                    Text(
-                      "Log In With Phone",
-                      style: GoogleFonts.poppins(color: Colors.white),
-                    ),
-                  ],
+                width: MediaQuery.of(context).size.width * 0.1, // Adjust width
+                child: Center(
+                  child: Text(
+                    "Create Account",
+                    style: GoogleFonts.montserrat(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Already Have An Account?",
+                style: GoogleFonts.poppins(),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(),
+                    ),
+                  );
+                },
+                child: Text(
+                  "Log In Here",
+                  style: GoogleFonts.ubuntuCondensed(
+                      color: Colors.orange, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kyn_designs/home.dart';
 import 'package:kyn_designs/login_page.dart';
+import 'package:kyn_designs/service_page.dart';
 import 'package:kyn_designs/sign_up.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const SignUp(),
+      home: const ServicePage(),
       debugShowCheckedModeBanner: false,
     );
   }

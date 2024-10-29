@@ -210,6 +210,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kyn_designs/custom/navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:kyn_designs/sign_up.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -359,7 +360,7 @@ class Logger extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.3,
+      width: MediaQuery.of(context).size.width * 0.25,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -386,7 +387,7 @@ class Logger extends StatelessWidget {
           Text(
             "LOG IN",
             style: GoogleFonts.montserrat(
-                fontSize: 48, fontWeight: FontWeight.w600),
+                fontSize: 32, fontWeight: FontWeight.bold),
           ),
           Align(
             alignment: Alignment.centerLeft,
@@ -484,7 +485,14 @@ class Logger extends StatelessWidget {
                 style: GoogleFonts.poppins(),
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignUp(),
+                      ),
+                    );
+                  },
                   child: Text(
                     "Register Now",
                     style: GoogleFonts.poppins(
