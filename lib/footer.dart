@@ -17,7 +17,7 @@ class _FooterState extends State<Footer> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        decoration: BoxDecoration(color: Colors.orange),
+        decoration: const BoxDecoration(color: Colors.orange),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -35,14 +35,14 @@ class _FooterState extends State<Footer> {
                           color: Colors.white, fontSize: 16),
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: TextField(
                       controller: _emailController,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(CupertinoIcons.bubble_left_fill),
+                        prefixIcon: const Icon(CupertinoIcons.bubble_left_fill),
                         prefixIconColor: Colors.white,
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide(
                             width: 30.0,
                             color: Colors.white,
@@ -63,7 +63,7 @@ class _FooterState extends State<Footer> {
                         _errorMessage = validateEmail(_emailController.text);
                       });
                     },
-                    child: Text('Subscribe'),
+                    child: const Text('Subscribe'),
                   ),
                 ],
               ),

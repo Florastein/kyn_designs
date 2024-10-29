@@ -86,7 +86,7 @@ class Services extends StatelessWidget {
                     fontSize: 42,
                   ),
                 ),
-                SizedBox(height: 10), // Added vertical spacing
+                const SizedBox(height: 10), // Added vertical spacing
                 Padding(
                   padding: const EdgeInsets.only(left: 95),
                   child: Text(
