@@ -692,14 +692,11 @@ class _TopManState extends State<TopMan> {
   }
 }*/
 
-import 'dart:ui';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kyn_designs/custom/custom_button.dart';
 import 'package:kyn_designs/custom/main_body.dart';
 import 'package:kyn_designs/custom/navbar.dart';
-import 'package:kyn_designs/footer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

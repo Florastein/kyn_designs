@@ -1,4 +1,4 @@
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:kyn_designs/custom/navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -8,7 +8,13 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+        body: Column(
+      children: [Navbar(), Fored()],
+    ));
+  }
+}
+
+/*Stack(
         children: [
           // Background or any other widgets can go here
           Positioned(
@@ -24,10 +30,7 @@ class LoginPage extends StatelessWidget {
             child: Fored(),
           ),
         ],
-      ),
-    );
-  }
-}
+      )*/
 
 /*class Fored extends StatefulWidget {
   const Fored({super.key});
@@ -203,13 +206,13 @@ class _ForedState extends State<Fored> {
       ),
     );
   }
-}*/
+}
 
+/*import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kyn_designs/custom/navbar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kyn_designs/sign_up.dart';
 
 class LoginPage extends StatelessWidget {
@@ -219,13 +222,13 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [Navbar(), Center(child: Logger())],
       ),
     ));
   }
-}
+}*/
 
 /*class Fored extends StatefulWidget {
   const Fored({super.key});
@@ -351,10 +354,10 @@ class _ForedState extends State<Fored> {
       ),
     );
   }
-}
-*/
+}*/
 
-class Logger extends StatelessWidget {
+
+/*class Logger extends StatelessWidget {
   const Logger({super.key});
 
   @override
@@ -408,7 +411,7 @@ class Logger extends StatelessWidget {
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
               filled: true,
-              prefixIcon: Icon(CupertinoIcons.mail),
+              prefixIcon: const Icon(CupertinoIcons.mail),
               fillColor: Colors.grey[100],
               hintText: 'Enter your email',
               hintStyle: TextStyle(color: Colors.grey[500]),
@@ -446,7 +449,7 @@ class Logger extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
                 ),
-                prefixIcon: Icon(Icons.password_rounded)),
+                prefixIcon: const Icon(Icons.password_rounded)),
           ),
           const SizedBox(height: 30),
           // Login Button with Gradient
@@ -474,7 +477,7 @@ class Logger extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
@@ -489,7 +492,7 @@ class Logger extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SignUp(),
+                        builder: (context) => const SignUp(),
                       ),
                     );
                   },
@@ -500,7 +503,7 @@ class Logger extends StatelessWidget {
                   ))
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           Align(
@@ -508,7 +511,7 @@ class Logger extends StatelessWidget {
             child: GestureDetector(
               onTap: () {},
               child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(10),
@@ -516,11 +519,11 @@ class Logger extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 10 / 100,
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.phone,
                         color: Colors.white,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
                       Text(
@@ -535,4 +538,4 @@ class Logger extends StatelessWidget {
       ),
     );
   }
-}
+}*/
