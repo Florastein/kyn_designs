@@ -1,6 +1,11 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_popup_card/flutter_popup_card.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kyn_designs/custom/navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:kyn_designs/sign_up.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -9,28 +14,16 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: [Navbar(), Fored()],
+      children: [
+        Navbar(),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.1,
+        ),
+        Logger()
+      ],
     ));
   }
 }
-
-/*Stack(
-        children: [
-          // Background or any other widgets can go here
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: const Navbar(),
-          ),
-          Positioned(
-            top: 80, // Adjust based on the height of your Navbar
-            left: 0,
-            right: 0,
-            child: Fored(),
-          ),
-        ],
-      )*/
 
 /*class Fored extends StatefulWidget {
   const Fored({super.key});
@@ -108,7 +101,9 @@ class Fored extends StatefulWidget {
 
 class _ForedState extends State<Fored> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   final TextEditingController _phoneController = TextEditingController();
+  final String _prefix = '+233';
   final TextEditingController _otpController = TextEditingController();
 
   String _verificationId = '';
@@ -146,7 +141,9 @@ class _ForedState extends State<Fored> {
     };
 
     await _auth.verifyPhoneNumber(
-      phoneNumber: _phoneController.text.trim(),
+      phoneNumber: _prefix +
+          _phoneController.text
+              .trim(), // this is Where I added the +233 code to the phone number
       verificationCompleted: verificationCompleted,
       verificationFailed: verificationFailed,
       codeSent: codeSent,
@@ -171,16 +168,49 @@ class _ForedState extends State<Fored> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.25,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          TextField(
-            controller: _phoneController,
-            decoration: InputDecoration(
-              labelText: 'Phone Number (+1234567890)',
-              errorText: _errorMessage.isNotEmpty ? _errorMessage : null,
+          Icon(
+            CupertinoIcons.lock_fill,
+            size: 64,
+            color: Colors.red,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Text(
+              "Log In With Phone Number",
+              style: GoogleFonts.montserrat(
+                  fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10)),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                myDropDownMenu(),
+                Expanded(
+                  child: TextField(
+                    controller: _phoneController,
+                    decoration: InputDecoration(
+                        labelText: 'Phone Number',
+                        hintText: "Phone Number without the 0",
+                        errorText:
+                            _errorMessage.isNotEmpty ? _errorMessage : null,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none)),
+                  ),
+                ),
+              ],
             ),
           ),
           if (_codeSent) ...[
@@ -197,9 +227,30 @@ class _ForedState extends State<Fored> {
             ),
           ] else ...[
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _verifyPhoneNumber,
-              child: const Text('Send OTP'),
+            GestureDetector(
+              onTap: _verifyPhoneNumber,
+              child: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: Colors.red, borderRadius: BorderRadius.circular(10)),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.send,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Send OTP",
+                      style: GoogleFonts.poppins(
+                          color: Colors.white, fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
+              ),
             ),
           ],
         ],
@@ -356,8 +407,7 @@ class _ForedState extends State<Fored> {
   }
 }*/
 
-
-/*class Logger extends StatelessWidget {
+class Logger extends StatelessWidget {
   const Logger({super.key});
 
   @override
@@ -509,7 +559,27 @@ class _ForedState extends State<Fored> {
           Align(
             alignment: Alignment.center,
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                showPopupCard(
+                    context: context,
+                    builder: (context) {
+                      return PopupCard(
+                        elevation: 8,
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Fored(),
+                        ),
+                      );
+                    },
+                    offset: Offset(-16, 70),
+                    alignment: Alignment.center,
+                    useSafeArea: true,
+                    dimBackground: true);
+              },
               child: Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -538,4 +608,58 @@ class _ForedState extends State<Fored> {
       ),
     );
   }
-}*/
+}
+
+class myDropDownMenu extends StatefulWidget {
+  const myDropDownMenu({super.key});
+
+  @override
+  State<myDropDownMenu> createState() => _myDropDownMenuState();
+}
+
+class _myDropDownMenuState extends State<myDropDownMenu> {
+  final List<String> items = ["+233"];
+
+  String? selectedValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2<String>(
+        isExpanded: true,
+        hint: Text(
+          '+233',
+          style: TextStyle(
+            fontSize: 14,
+            color: Theme.of(context).hintColor,
+          ),
+        ),
+        items: items
+            .map((String item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                ))
+            .toList(),
+        value: selectedValue,
+        onChanged: (String? value) {
+          setState(() {
+            selectedValue = value;
+          });
+        },
+        buttonStyleData: const ButtonStyleData(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          height: 40,
+          width: 100,
+        ),
+        menuItemStyleData: const MenuItemStyleData(
+          height: 40,
+        ),
+      ),
+    );
+  }
+}

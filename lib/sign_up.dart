@@ -374,28 +374,28 @@ class _LoggerState extends State<Logger> {
                 fontSize: 32, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 10), // Add space between fields
-          CustomTextBox(hintText: "Username", icon: CupertinoIcons.person_alt),
+          const CustomTextBox(hintText: "Username", icon: CupertinoIcons.person_alt),
           const SizedBox(height: 10), // Space between fields
           CustomTextBox(
               hintText: "Full Name", icon: CupertinoIcons.person_2_fill),
           SizedBox(
             height: 10,
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: CustomTextBox(
                     hintText: "Location", icon: CupertinoIcons.location_fill),
               ),
-              const SizedBox(width: 10), // Space between fields
+              SizedBox(width: 10), // Space between fields
               Expanded(
                 child: CustomTextBox(
                     hintText: "Phone Number", icon: CupertinoIcons.phone_solid),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(

@@ -9,138 +9,17 @@ class ServicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromRGBO(255, 248, 193, 1.0),
+        //backgroundColor: Color.fromRGBO(255, 248, 193, 1.0),
         body: Column(
-          children: [
-            Navbar(),
-            Stack(
-              children: [
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Image.asset(
-                    'images/servicebg.jpg',
-                    width: MediaQuery.of(context).size.height * 80 / 100,
-                  ),
-                ),
-                Align(alignment: Alignment.centerLeft, child: Former())
-              ],
-            )
-          ],
-        ));
+      children: [
+        Navbar(),
+      ],
+    ));
   }
 }
 
-class Former extends StatefulWidget {
-  const Former({super.key});
 
-  @override
-  State<Former> createState() => _FormerState();
-}
-
-/*class _FormerState extends State<Former> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.all(40),
-      width: MediaQuery.of(context).size.width * 0.25,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(15)),
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Job Description",
-              style: GoogleFonts.montserrat(),
-            ),
-          ),
-          TextField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Colors.orange, style: BorderStyle.solid)),
-                hintText: "Describe Your Order"),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              Text(
-                "Number of Copies:",
-                style: GoogleFonts.montserrat(),
-              ),
-              TextField(
-                decoration: InputDecoration(border: OutlineInputBorder()),
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}*/
-
-class _FormerState extends State<Former> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.all(40),
-      width: MediaQuery.of(context).size.width * 0.25,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Job Description",
-            style: GoogleFonts.montserrat(),
-          ),
-          SizedBox(height: 10),
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.orange,
-                  style: BorderStyle.solid,
-                ),
-              ),
-              hintText: "Describe Your Order",
-            ),
-            maxLines: 3,
-          ),
-          SizedBox(height: 20),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Number of Copies:",
-                style: GoogleFonts.montserrat(),
-              ),
-              SizedBox(width: 10),
-              Expanded(
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    isDense: true,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          MyDropRegion()
-        ],
-      ),
-    );
-  }
-}
-
-class MyDropRegion extends StatelessWidget {
+/*class MyDropRegion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropRegion(
@@ -216,3 +95,4 @@ class MyDropRegion extends StatelessWidget {
     );
   }
 }
+*/
