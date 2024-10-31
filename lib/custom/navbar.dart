@@ -205,7 +205,7 @@ class _NavbarState extends State<Navbar> {
   Widget _buildLogo() {
     return Row(
       children: [
-        Image.asset('images/logo.png', height: 50, width: 50),
+        Image.asset('images/logo.png', height: 64, width: 64),
         SizedBox(width: 8),
         Text(
           "KYN DESIGNS & TECH",

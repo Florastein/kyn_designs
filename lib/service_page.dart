@@ -9,15 +9,272 @@ class ServicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //backgroundColor: Color.fromRGBO(255, 248, 193, 1.0),
-        body: Column(
-      children: [
-        Navbar(),
-      ],
-    ));
+      //backgroundColor: Color.fromRGBO(255, 248, 193, 1.0),
+      body: SingleChildScrollView(
+        child: Stack(children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Navbar(),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 60),
+                    child: Text(
+                      "OUR SERVICES",
+                      style: GoogleFonts.rubikWetPaint(
+                          fontSize: 28, color: Colors.red),
+                    ),
+                  ),
+                  ServiceList(),
+                ],
+              ),
+              Text(
+                "Gallery",
+                style: GoogleFonts.poppins(color: Colors.red),
+              )
+            ],
+          ),
+          Align(
+            alignment: AlignmentDirectional(0.98, 0.63),
+            child: Image.asset(
+              "gallery/size.jpg",
+              width: MediaQuery.of(context).size.width * 20 / 100,
+              height: MediaQuery.of(context).size.width * 90 / 100,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ]),
+      ),
+    );
   }
 }
 
+class ServiceList extends StatelessWidget {
+  const ServiceList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(25),
+      margin: EdgeInsets.symmetric(horizontal: 25),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            spreadRadius: 5,
+            blurRadius: 10,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Expanded(
+          child: Flexible(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "T-Shirt Printing",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Picture Printing",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Result Checking",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Online Registration",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Rubber Stamp",
+                  style: GoogleFonts.poppins(fontSize: 18),
+                ),
+                Text(
+                  "Picture Enlargement",
+                  style: GoogleFonts.poppins(fontSize: 18),
+                ),
+                Text(
+                  "Instant Passport Picture",
+                  style: GoogleFonts.poppins(fontSize: 18),
+                ),
+                Text(
+                  "Sign Post / Board",
+                  style: GoogleFonts.poppins(fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Bussiness Card",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Bronchures",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Posters / Flyers",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Banners / Flexy",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "PVC ID Card Printing",
+                  style: GoogleFonts.poppins(fontSize: 18),
+                ),
+                Text(
+                  "Book Binding",
+                  style: GoogleFonts.poppins(fontSize: 18),
+                ),
+                Text(
+                  "Receipt / Invoice",
+                  style: GoogleFonts.poppins(fontSize: 18),
+                ),
+                Text(
+                  "Invitation cards",
+                  style: GoogleFonts.poppins(fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Lamination",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Scanning",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Label",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Branding",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Graphic Design",
+                  style: GoogleFonts.poppins(fontSize: 18),
+                ),
+                Text(
+                  "Type & Printing",
+                  style: GoogleFonts.poppins(fontSize: 18),
+                ),
+                Text(
+                  "Photocopy",
+                  style: GoogleFonts.poppins(fontSize: 18),
+                ),
+                Text(
+                  "Mug Printing",
+                  style: GoogleFonts.poppins(fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Certificates",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Large Format Printing",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Indenture",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Silk  Screen Development",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  "Etc...",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                      fontSize: 18),
+                ),
+              ],
+            ),
+          ],
+        ),
+      )),
+    );
+  }
+}
 
 /*class MyDropRegion extends StatelessWidget {
   @override

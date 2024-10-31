@@ -287,12 +287,16 @@ class LabelText extends StatelessWidget {
 }
 */
 
+/*
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kyn_designs/custom/custom_text_box.dart';
 import 'package:kyn_designs/custom/navbar.dart';
 import 'package:kyn_designs/login_page.dart';
+import 'package:kyn_designs/service/database.dart';
+import 'package:random_string/random_string.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -327,16 +331,34 @@ class Logger extends StatefulWidget {
 }
 
 class _LoggerState extends State<Logger> {
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmpasswordController =
+      TextEditingController();
+
   String _password = '';
   String _confirmPassword = '';
   String _errorMessage = '';
 
-  void _validatePassword() {
+  /*void _validatePassword() {
     setState(() {
       if (_password != _confirmPassword) {
         _errorMessage = 'Passwords do not match';
+      } 
+    });
+  }*/
+
+  void _validatePassword() {
+    setState(() {
+      if (_passwordController.text != _confirmpasswordController.text) {
+        _errorMessage = 'Passwords do not match';
       } else {
         _errorMessage = '';
+        _password = _passwordController.text;
       }
     });
   }
@@ -374,24 +396,40 @@ class _LoggerState extends State<Logger> {
                 fontSize: 32, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 10), // Add space between fields
-          const CustomTextBox(hintText: "Username", icon: CupertinoIcons.person_alt),
-          const SizedBox(height: 10), // Space between fields
           CustomTextBox(
-              hintText: "Full Name", icon: CupertinoIcons.person_2_fill),
+              controller: _userNameController,
+              hintText: "Username",
+              icon: CupertinoIcons.person_alt),
           SizedBox(
             height: 10,
           ),
-          const Row(
+          CustomTextBox(
+              controller: _emailController,
+              hintText: "Email",
+              icon: Icons.email),
+          const SizedBox(height: 10), // Space between fields
+          CustomTextBox(
+              controller: _fullNameController,
+              hintText: "Full Name",
+              icon: CupertinoIcons.person_2_fill),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: CustomTextBox(
-                    hintText: "Location", icon: CupertinoIcons.location_fill),
+                    controller: _locationController,
+                    hintText: "Location",
+                    icon: CupertinoIcons.location_fill),
               ),
               SizedBox(width: 10), // Space between fields
               Expanded(
                 child: CustomTextBox(
-                    hintText: "Phone Number", icon: CupertinoIcons.phone_solid),
+                    controller: _phoneNumberController,
+                    hintText: "Phone Number",
+                    icon: CupertinoIcons.phone_solid),
               ),
             ],
           ),
@@ -403,6 +441,7 @@ class _LoggerState extends State<Logger> {
             children: [
               Expanded(
                 child: CustomTextBox(
+                  controller: _passwordController,
                   isPassword: true,
                   hintText: "Password",
                   icon: CupertinoIcons.lock_shield_fill,
@@ -415,6 +454,7 @@ class _LoggerState extends State<Logger> {
               const SizedBox(width: 10), // Space between fields
               Expanded(
                 child: CustomTextBox(
+                  controller: _confirmpasswordController,
                   isPassword: true,
                   hintText: "Confirm Password",
                   icon: CupertinoIcons.lock_shield_fill,
@@ -437,7 +477,30 @@ class _LoggerState extends State<Logger> {
           Align(
             alignment: Alignment.center,
             child: GestureDetector(
-              onTap: () {},
+              onTap: () async {
+                String Id = randomAlphaNumeric(10);
+                Map<String, dynamic> userInfoMap = {
+                  "Id": Id,
+                  "Username": _userNameController.text,
+                  "Email": _emailController.text,
+                  "Fullname": _fullNameController.text,
+                  "Location": _locationController.text,
+                  "Phone Number": _phoneNumberController.text.trim(),
+                  "Password": _password,
+                };
+                await DatabaseMethods()
+                    .newRegistration(userInfoMap, Id)
+                    .then((value) {
+                  Fluttertoast.showToast(
+                      msg: "Registration Successful",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.green,
+                      textColor: Colors.black,
+                      fontSize: 16.0);
+                });
+              },
               child: Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
@@ -473,7 +536,7 @@ class _LoggerState extends State<Logger> {
                 },
                 child: Text(
                   "Log In Here",
-                  style: GoogleFonts.ubuntuCondensed(
+                  style: GoogleFonts.montserrat(
                       color: Colors.orange, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -501,6 +564,42 @@ class LabelText extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.grey[600],
           ),
+        ),
+      ),
+    );
+  }
+}
+*/
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kyn_designs/custom/custom_text_box.dart';
+import 'package:kyn_designs/custom/losin.dart';
+import 'package:kyn_designs/custom/navbar.dart';
+import 'package:kyn_designs/service/database.dart';
+import 'package:random_string/random_string.dart';
+
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Navbar(),
+            Expanded(
+                child: Center(child: Logger())), // Use Expanded to fill space
+          ],
         ),
       ),
     );

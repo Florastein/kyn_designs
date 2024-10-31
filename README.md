@@ -1,6 +1,10 @@
 # kyn_designs
 
-A new Flutter project.
+This a flutter web app developed by Jessie Cadmil  for Kyn Designs and Tech at Agbozume in the Volta Region of Ghana. This system is supoosed to have the following features:
+ - Homepage
+ - Order Page
+ - Admin Panel
+ - Using Firebase for Authentication and data storage
 
 ## Getting Started
 

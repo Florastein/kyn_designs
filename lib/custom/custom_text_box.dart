@@ -61,18 +61,19 @@ class _CustomTextBoxState extends State<CustomTextBox> {
 }*/
 
 class CustomTextBox extends StatefulWidget {
+  final TextEditingController controller;
   final String hintText;
   final bool isPassword;
   final IconData icon;
   final ValueChanged<String>? onChanged; // New parameter for capturing input
 
-  const CustomTextBox({
-    super.key,
-    required this.hintText,
-    this.isPassword = false,
-    required this.icon,
-    this.onChanged,
-  });
+  const CustomTextBox(
+      {super.key,
+      required this.hintText,
+      this.isPassword = false,
+      required this.icon,
+      this.onChanged,
+      required this.controller});
 
   @override
   _CustomTextBoxState createState() => _CustomTextBoxState();
@@ -90,6 +91,7 @@ class _CustomTextBoxState extends State<CustomTextBox> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: widget.controller,
       onChanged: widget.isPassword
           ? widget.onChanged
           : null, // Only call if isPassword
