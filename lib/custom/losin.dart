@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_popup_card/flutter_popup_card.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kyn_designs/custom/custom_text_box.dart';
@@ -38,22 +39,59 @@ class _LoggerState extends State<Logger> {
     });
   }
 
+  void _clearForm() {
+    _userNameController.clear();
+    _emailController.clear();
+    _fullNameController.clear();
+    _locationController.clear();
+    _phoneNumberController.clear();
+    _passwordController.clear();
+    _confirmpasswordController.clear();
+
+    setState(() {
+      _errorMessage = '';
+      _password = '';
+    });
+  }
+
   void _registerUser() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: Colors.orange,
+              strokeWidth: 10,
+            ),
+          );
+        });
+
     _validatePassword();
     if (_errorMessage.isNotEmpty) {
-      Fluttertoast.showToast(
-        msg: _errorMessage,
+      Navigator.pop(context);
+      SnackBar(
         backgroundColor: Colors.red,
-        textColor: Colors.white,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
+        duration: Duration(seconds: 3),
+        content: Row(
+          children: [
+            Icon(
+              Icons.dangerous,
+              color: Colors.white,
+              size: 32,
+            ),
+            Text(
+              _errorMessage,
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600, fontSize: 18),
+            ),
+          ],
+        ),
       );
       return;
     }
 
     String id = randomAlphaNumeric(10);
     Map<String, dynamic> userInfoMap = {
-      "Id": id,
       "Username": _userNameController.text,
       "Email": _emailController.text,
       "Fullname": _fullNameController.text,
@@ -62,13 +100,58 @@ class _LoggerState extends State<Logger> {
       "Password": _password,
     };
 
-    await DatabaseMethods().newRegistration(userInfoMap, id).then((value) {
-      Fluttertoast.showToast(
+    await DatabaseMethods()
+        .newRegistration(userInfoMap, _emailController.text, _password)
+        .then((value) {
+      /*Fluttertoast.showToast(
         msg: "Registration Successful",
         backgroundColor: Colors.green,
         textColor: Colors.white,
-        toastLength: Toast.LENGTH_SHORT,
+        toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
+      );*/
+      _clearForm();
+      showPopupCard(
+          context: context,
+          builder: (context) {
+            return PopupCard(
+              elevation: 8,
+              color: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            CupertinoIcons.hand_thumbsup,
+                            size: 24,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Registraion Successful",
+                            style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )
+                    ],
+                  )),
+            );
+          });
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginPage(),
+        ),
       );
     }).catchError((error) {
       Fluttertoast.showToast(
@@ -79,6 +162,18 @@ class _LoggerState extends State<Logger> {
         gravity: ToastGravity.CENTER,
       );
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _userNameController.dispose();
+    _emailController.dispose();
+    _fullNameController.dispose();
+    _locationController.dispose();
+    _phoneNumberController.dispose();
+    _passwordController.dispose();
+    _confirmpasswordController.dispose();
   }
 
   @override

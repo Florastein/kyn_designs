@@ -5,6 +5,8 @@ import 'package:flutter_popup_card/flutter_popup_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kyn_designs/custom/navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:kyn_designs/pages/dashboard.dart';
+import 'package:kyn_designs/service/database.dart';
 import 'package:kyn_designs/sign_up.dart';
 
 class LoginPage extends StatelessWidget {
@@ -407,8 +409,18 @@ class _ForedState extends State<Fored> {
   }
 }*/
 
-class Logger extends StatelessWidget {
-  const Logger({super.key});
+class Logger extends StatefulWidget {
+  Logger({super.key});
+
+  @override
+  State<Logger> createState() => _LoggerState();
+}
+
+class _LoggerState extends State<Logger> {
+  final emailController = TextEditingController();
+
+  final passwordController = TextEditingController();
+  final DatabaseMethods databaseMethods = DatabaseMethods();
 
   @override
   Widget build(BuildContext context) {
@@ -456,6 +468,7 @@ class Logger extends StatelessWidget {
           const SizedBox(height: 8),
           // Email TextField with Rounded Style
           TextField(
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               contentPadding:
@@ -487,6 +500,7 @@ class Logger extends StatelessWidget {
           const SizedBox(height: 8),
           // Password TextField with Rounded Style
           TextField(
+            controller: passwordController,
             obscureText: true,
             decoration: InputDecoration(
                 contentPadding:
@@ -507,7 +521,8 @@ class Logger extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 20 / 100,
             child: ElevatedButton(
               onPressed: () {
-                // Handle login action
+                databaseMethods.signUserIn(
+                    context, emailController, passwordController);
               },
               style: ElevatedButton.styleFrom(
                 elevation: 4,

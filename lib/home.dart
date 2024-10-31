@@ -724,6 +724,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+          Footer()
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -843,6 +844,27 @@ class _TopManState extends State<TopMan> {
           ),
         );
       }),
+    );
+  }
+}
+
+class Footer extends StatelessWidget {
+  const Footer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(borderSide: BorderSide.none),
+                  fillColor: Colors.orange),
+            )
+          ],
+        )
+      ],
     );
   }
 }
