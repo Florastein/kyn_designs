@@ -15,7 +15,12 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: [Navbars()],
+      children: [
+        Navbars(),
+        Row(
+          children: [],
+        )
+      ],
     ));
   }
 }

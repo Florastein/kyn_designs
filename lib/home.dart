@@ -872,9 +872,9 @@ class Footer extends StatelessWidget {
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+//import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:icon_icons/icon_icons.dart';
+//import 'package:icon_icons/icon_icons.dart';
 import 'package:kyn_designs/custom/logs_navbar.dart';
 import 'package:kyn_designs/custom/main_body.dart';
 import 'package:kyn_designs/custom/navbar.dart';
@@ -899,13 +899,13 @@ class HomePage extends StatelessWidget {
               }
             },
           ),
-          Expanded(
+          const Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(top: 100),
+                padding: EdgeInsets.only(top: 100),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     TopMan(),
                     Services(),
                   ],
@@ -927,7 +927,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class TopMan extends StatefulWidget {
+/*class TopMan extends StatefulWidget {
   const TopMan({super.key});
 
   @override
@@ -1002,6 +1002,7 @@ class _TopManState extends State<TopMan> {
       height: MediaQuery.of(context).size.height * 0.3,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             itemsName[index],
@@ -1033,6 +1034,291 @@ class _TopManState extends State<TopMan> {
       }),
     );
   }
+}*/
+
+/*class TopMan extends StatefulWidget {
+  const TopMan({super.key});
+
+  @override
+  State<TopMan> createState() => _TopManState();
+}
+
+class _TopManState extends State<TopMan> {
+  final List<String> items = [
+    'images/general.png',
+    'images/graphic.png',
+    'images/large.png',
+    'images/printing.png',
+    'images/shirt.png',
+  ];
+
+  final List<String> itemsName = [
+    'PRINTING SERVICES',
+    'GRAPHIC DESIGN',
+    'LARGE FORMAT PRINTING',
+    'BROCHURES',
+    'SHIRT & MUGS',
+  ];
+
+  int _currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    // Adjust sizes based on screen width
+    double containerHeight = screenHeight * 0.34;
+    double containerWidth = screenWidth * 0.85;
+    double carouselHeight = screenHeight * 0.45;
+    double itemFontSize = screenWidth < 600
+        ? 16 // Mobile
+        : screenWidth < 1024
+            ? 24 // Tablet
+            : 32; // Desktop
+    double indicatorSize = screenWidth < 600 ? 6.0 : 8.0;
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      height: containerHeight,
+      width: containerWidth,
+      child: Column(
+        children: [
+          Expanded(
+            child: CarouselSlider.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index, realIndex) {
+                return _buildCarouselItem(index, itemFontSize, screenWidth);
+              },
+              options: CarouselOptions(
+                height: carouselHeight,
+                enableInfiniteScroll: true,
+                autoPlay: true,
+                viewportFraction: 1.0,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              ),
+            ),
+          ),
+          _buildIndicator(indicatorSize),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCarouselItem(int index, double fontSize, double screenWidth) {
+    if (index < 0 || index >= items.length) return const SizedBox.shrink();
+
+    return SizedBox(
+      width: screenWidth * 0.8,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Flexible(
+            flex: 2,
+            child: Text(
+              itemsName[index],
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+                fontSize: fontSize,
+              ),
+            ),
+          ),
+          Flexible(
+            flex: 3,
+            child: Image.asset(
+              items[index],
+              fit: BoxFit.cover,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildIndicator(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(items.length, (index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 5.0),
+          width: _currentIndex == index ? size * 1.5 : size,
+          height: size,
+          decoration: BoxDecoration(
+            color: _currentIndex == index ? Colors.orange : Colors.grey,
+            shape: BoxShape.circle,
+          ),
+        );
+      }),
+    );
+  }
+}*/
+
+class TopMan extends StatefulWidget {
+  const TopMan({super.key});
+
+  @override
+  State<TopMan> createState() => _TopManState();
+}
+
+class _TopManState extends State<TopMan> {
+  final List<String> items = [
+    'images/general.png',
+    'images/graphic.png',
+    'images/large.png',
+    'images/printing.png',
+    'images/shirt.png',
+  ];
+
+  final List<String> itemsName = [
+    'PRINTING SERVICES',
+    'GRAPHIC DESIGN',
+    'LARGE FORMAT PRINTING',
+    'BROCHURES',
+    'SHIRT & MUGS',
+  ];
+
+  int _currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    // Adjust sizes based on screen width
+    double containerHeight = screenHeight * 0.34;
+    double containerWidth = screenWidth * 0.85;
+    double carouselHeight = screenHeight * 0.45;
+    double itemFontSize = screenWidth < 600
+        ? 16 // Mobile
+        : screenWidth < 1024
+            ? 24 // Tablet
+            : 32; // Desktop
+    double indicatorSize = screenWidth < 600 ? 6.0 : 8.0;
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      height: containerHeight,
+      width: containerWidth,
+      child: Column(
+        children: [
+          Expanded(
+            child: CarouselSlider.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index, realIndex) {
+                return _buildCarouselItem(index, itemFontSize, screenWidth);
+              },
+              options: CarouselOptions(
+                height: carouselHeight,
+                enableInfiniteScroll: true,
+                autoPlay: true,
+                viewportFraction: 1.0,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              ),
+            ),
+          ),
+          _buildIndicator(indicatorSize),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCarouselItem(int index, double fontSize, double screenWidth) {
+    if (index < 0 || index >= items.length) return const SizedBox.shrink();
+
+    // Conditional layout: text below image on smaller screens
+    bool isMobile = screenWidth < 600;
+
+    return Column(
+      children: [
+        if (!isMobile) // Text to the side of the image for larger screens
+          SizedBox(
+            width: screenWidth * 0.8,
+            height: MediaQuery.of(context).size.height * 0.30,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: Text(
+                    itemsName[index],
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: fontSize,
+                    ),
+                  ),
+                ),
+                Flexible(
+                  flex: 3,
+                  child: Image.asset(
+                    items[index],
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        if (isMobile) // Text below image for smaller screens
+          Column(
+            children: [
+              Image.asset(
+                items[index],
+                fit: BoxFit.cover,
+                width: screenWidth * 0.8,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  itemsName[index],
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: fontSize,
+                  ),
+                ),
+              ),
+            ],
+          ),
+      ],
+    );
+  }
+
+  Widget _buildIndicator(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(items.length, (index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 5.0),
+          width: _currentIndex == index ? size * 1.5 : size,
+          height: size,
+          decoration: BoxDecoration(
+            color: _currentIndex == index ? Colors.orange : Colors.grey,
+            shape: BoxShape.circle,
+          ),
+        );
+      }),
+    );
+  }
 }
 
 class Footer extends StatelessWidget {
@@ -1054,7 +1340,7 @@ class Footer extends StatelessWidget {
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.20,
-                  child: TextField(
+                  child: const TextField(
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(borderSide: BorderSide.none),
@@ -1064,12 +1350,12 @@ class Footer extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 GestureDetector(
                   child: Container(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(10)),
@@ -1087,22 +1373,22 @@ class Footer extends StatelessWidget {
             children: [
               IconButton(
                   onPressed: () {},
-                  icon: Icon(UniconsLine.whatsapp,
+                  icon: const Icon(UniconsLine.whatsapp,
                       size: 24, color: Colors.white)),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(UniconsLine.facebook_messenger_alt,
+                  icon: const Icon(UniconsLine.facebook_messenger_alt,
                       size: 24, color: Colors.white)),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     UniconsLine.instagram,
                     size: 24,
                     color: Colors.white,
                   )),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     UniconsLine.twitter_alt,
                     color: Colors.white,
                     size: 24,
@@ -1116,7 +1402,7 @@ class Footer extends StatelessWidget {
               style: GoogleFonts.montserrat(color: Colors.white),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Align(

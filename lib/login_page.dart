@@ -409,7 +409,7 @@ class _ForedState extends State<Fored> {
   }
 }*/
 
-class Logger extends StatefulWidget {
+/*class Logger extends StatefulWidget {
   Logger({super.key});
 
   @override
@@ -620,6 +620,237 @@ class _LoggerState extends State<Logger> {
             ),
           )
         ],
+      ),
+    );
+  }
+}*/
+
+class Logger extends StatefulWidget {
+  const Logger({super.key});
+
+  @override
+  State<Logger> createState() => _LoggerState();
+}
+
+class _LoggerState extends State<Logger> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final DatabaseMethods databaseMethods = DatabaseMethods();
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Define breakpoints
+    const mobileBreakpoint = 480.0;
+    const tabletBreakpoint = 768.0;
+
+    double containerWidth;
+    double logoSize;
+    double fontSize;
+
+    if (screenWidth <= mobileBreakpoint) {
+      // Mobile layout
+      containerWidth = screenWidth * 0.9;
+      logoSize = screenWidth * 0.4;
+      fontSize = 16;
+    } else if (screenWidth <= tabletBreakpoint) {
+      // Tablet layout
+      containerWidth = screenWidth * 0.6;
+      logoSize = screenWidth * 0.3;
+      fontSize = 20;
+    } else {
+      // Desktop layout
+      containerWidth = screenWidth * 0.3;
+      logoSize = screenWidth * 0.2;
+      fontSize = 24;
+    }
+
+    return Center(
+      child: Container(
+        width: containerWidth,
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 5,
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Center(
+              child: Image.asset(
+                'images/logo.png',
+                width: logoSize,
+                height: logoSize,
+              ),
+            ),
+            Text(
+              "LOG IN",
+              style: GoogleFonts.montserrat(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Email",
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
+                  fontSize: fontSize * 0.5,
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            _buildTextField(
+              controller: emailController,
+              hint: 'Enter your email',
+              icon: CupertinoIcons.mail,
+            ),
+            const SizedBox(height: 20),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Password",
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
+                  fontSize: fontSize * 0.5,
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            _buildTextField(
+              controller: passwordController,
+              hint: 'Enter your password',
+              icon: Icons.password_rounded,
+              obscureText: true,
+            ),
+            const SizedBox(height: 30),
+            SizedBox(
+              width: containerWidth * 0.8,
+              child: ElevatedButton(
+                onPressed: () {
+                  databaseMethods.signUserIn(
+                      context, emailController, passwordController);
+                },
+                style: ElevatedButton.styleFrom(
+                  elevation: 4,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  backgroundColor: Colors.red,
+                ),
+                child: Text(
+                  'LOG IN',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600,
+                    fontSize: fontSize * 0.6,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            _buildRegisterNow(fontSize),
+            const SizedBox(height: 25),
+            _buildPhoneLoginButton(containerWidth, fontSize),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String hint,
+    required IconData icon,
+    bool obscureText = false,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+        filled: true,
+        prefixIcon: Icon(icon),
+        fillColor: Colors.grey[100],
+        hintText: hint,
+        hintStyle: TextStyle(color: Colors.grey[500]),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRegisterNow(double fontSize) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          "Don't Have An Account?",
+          style: GoogleFonts.poppins(fontSize: fontSize * 0.5),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SignUp()),
+            );
+          },
+          child: Text(
+            "Register Now",
+            style: GoogleFonts.poppins(
+              color: Colors.orange,
+              fontWeight: FontWeight.bold,
+              fontSize: fontSize * 0.5,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPhoneLoginButton(double containerWidth, double fontSize) {
+    return GestureDetector(
+      onTap: () {
+        // Your phone login logic here
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        width: containerWidth * 0.8,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.phone, color: Colors.white),
+            const SizedBox(width: 8),
+            Text(
+              "Log In With Phone",
+              style: GoogleFonts.poppins(
+                color: Colors.white,
+                fontSize: fontSize * 0.5,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
