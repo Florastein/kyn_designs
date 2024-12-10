@@ -5,17 +5,18 @@ import 'package:kyn_designs/about_us.dart';
 import 'package:kyn_designs/contact_page.dart';
 import 'package:kyn_designs/custom/account_actions.dart';
 import 'package:kyn_designs/home.dart';
+import 'package:kyn_designs/pages/dashboard.dart';
 import 'package:kyn_designs/service_page.dart';
 
-class Navbar extends StatefulWidget {
-  const Navbar({super.key});
+class Navbars extends StatefulWidget {
+  const Navbars({super.key});
 
   @override
-  State<Navbar> createState() => _NavbarState();
+  State<Navbars> createState() => _NavbarState();
 }
 
-class _NavbarState extends State<Navbar> {
-  final List<bool> _isHovered = List.generate(4, (_) => false);
+class _NavbarState extends State<Navbars> {
+  final List<bool> _isHovered = List.generate(5, (_) => false);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _NavbarState extends State<Navbar> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildLogo(),
-                //_buildMenu(),
+                _buildMenu(),
                 _buildActions(),
               ],
             )
@@ -65,7 +66,13 @@ class _NavbarState extends State<Navbar> {
   }
 
   Widget _buildMenu() {
-    const menuItems = ['Home', 'Services', 'About Us', 'Contact'];
+    const menuItems = [
+      'Home',
+      'Services',
+      'Dashboard',
+      'About Us',
+      'Contact',
+    ];
     return Row(
       children: List.generate(menuItems.length, (index) {
         return _buildMenuItem(index, menuItems[index]);
@@ -149,7 +156,7 @@ class _NavbarState extends State<Navbar> {
   }
 
   List<Widget> _buildMenuListItems() {
-    const menuItems = ['Home', 'Services', 'About Us', 'Contact'];
+    const menuItems = ['Home', 'Services', 'About Us', 'Contact', 'Dashboard'];
     return List.generate(menuItems.length, (index) {
       return ListTile(
         title: Text(menuItems[index],
@@ -180,7 +187,7 @@ class _NavbarState extends State<Navbar> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ServicePage()),
+          MaterialPageRoute(builder: (context) => ServicePage()),
         );
         break;
       case 2:
@@ -195,6 +202,14 @@ class _NavbarState extends State<Navbar> {
           MaterialPageRoute(builder: (context) => const ContactPage()),
         );
         break;
+      case 4:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Dashboard(),
+          ),
+        );
+        break;
     }
   }
 
@@ -202,5 +217,11 @@ class _NavbarState extends State<Navbar> {
 
   void _logOut() {
     FirebaseAuth.instance.signOut();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ),
+    );
   }
 }

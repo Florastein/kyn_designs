@@ -692,7 +692,7 @@ class _TopManState extends State<TopMan> {
   }
 }*/
 
-import 'package:carousel_slider_plus/carousel_slider_plus.dart';
+/*import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kyn_designs/custom/main_body.dart';
@@ -865,6 +865,282 @@ class Footer extends StatelessWidget {
           ],
         )
       ],
+    );
+  }
+}*/
+
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:icon_icons/icon_icons.dart';
+import 'package:kyn_designs/custom/logs_navbar.dart';
+import 'package:kyn_designs/custom/main_body.dart';
+import 'package:kyn_designs/custom/navbar.dart';
+import 'package:unicons/unicons.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              //user logged in
+              if (snapshot.hasData) {
+                return Navbars();
+              } else {
+                return Navbar();
+              }
+            },
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    TopMan(),
+                    Services(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const Footer(),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print("Hello World");
+        },
+        backgroundColor: Colors.red,
+        child: const Icon(Icons.message, color: Colors.white),
+      ),
+    );
+  }
+}
+
+class TopMan extends StatefulWidget {
+  const TopMan({super.key});
+
+  @override
+  State<TopMan> createState() => _TopManState();
+}
+
+class _TopManState extends State<TopMan> {
+  final List<String> items = [
+    'images/general.png',
+    'images/graphic.png',
+    'images/large.png',
+    'images/printing.png',
+    'images/shirt.png',
+  ];
+
+  final List<String> itemsName = [
+    'PRINTING SERVICES',
+    'GRAPHIC DESIGN',
+    'LARGE FORMAT PRINTING',
+    'BROCHURES',
+    'SHIRT & MUGS',
+  ];
+
+  int _currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    if (items.isEmpty || items.length != itemsName.length) {
+      return const Center(child: Text("No items available"));
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      height: MediaQuery.of(context).size.height * 0.34,
+      width: MediaQuery.of(context).size.width * 0.85,
+      child: Column(
+        children: [
+          Expanded(
+            child: CarouselSlider.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index, realIndex) {
+                return _buildCarouselItem(index);
+              },
+              options: CarouselOptions(
+                height: MediaQuery.of(context).size.height * 0.45,
+                enableInfiniteScroll: true,
+                autoPlay: true,
+                viewportFraction: 1.0,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              ),
+            ),
+          ),
+          _buildIndicator(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCarouselItem(int index) {
+    if (index < 0 || index >= items.length) return const SizedBox.shrink();
+
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.8,
+      height: MediaQuery.of(context).size.height * 0.3,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            itemsName[index],
+            style: GoogleFonts.poppins(
+                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 32),
+          ),
+          Image.asset(
+            items[index],
+            fit: BoxFit.cover,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildIndicator() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(items.length, (index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 5.0),
+          width: _currentIndex == index ? 12.0 : 8.0,
+          height: 8.0,
+          decoration: BoxDecoration(
+            color: _currentIndex == index ? Colors.orange : Colors.grey,
+            shape: BoxShape.circle,
+          ),
+        );
+      }),
+    );
+  }
+}
+
+class Footer extends StatelessWidget {
+  const Footer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      color: Colors.orange,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            width: 40,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  child: TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(borderSide: BorderSide.none),
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: 'Suscribe To Our NewsLetter',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                GestureDetector(
+                  child: Container(
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Text(
+                      "Suscribe",
+                      style: GoogleFonts.poppins(color: Colors.white),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(UniconsLine.whatsapp,
+                      size: 24, color: Colors.white)),
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(UniconsLine.facebook_messenger_alt,
+                      size: 24, color: Colors.white)),
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    UniconsLine.instagram,
+                    size: 24,
+                    color: Colors.white,
+                  )),
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    UniconsLine.twitter_alt,
+                    color: Colors.white,
+                    size: 24,
+                  ))
+            ],
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              "Location: Agbozume, Volta Region, Ghana",
+              style: GoogleFonts.montserrat(color: Colors.white),
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              "Telephone:  (+233) 024-5455-994, 020-767-3884, 024-4444-4353",
+              style: GoogleFonts.montserrat(color: Colors.white),
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              "Email: kyndesigns@gmail.com",
+              style: GoogleFonts.montserrat(color: Colors.white),
+            ),
+          ),
+          Align(
+            child: Text(
+              "Copyright \u00A9 2024 Binstech LLC",
+              style: GoogleFonts.montserrat(color: Colors.white),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

@@ -1,5 +1,7 @@
+/*import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kyn_designs/custom/logs_navbar.dart';
 import 'package:kyn_designs/custom/navbar.dart';
 import 'package:super_drag_and_drop/super_drag_and_drop.dart';
 
@@ -9,268 +11,55 @@ class ServicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color.fromRGBO(255, 248, 193, 1.0),
+      backgroundColor: Color(0xFFCE792C),
       body: SingleChildScrollView(
-        child: Stack(children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              //user logged in
+              if (snapshot.hasData) {
+                return Navbars();
+              } else {
+                return Navbar();
+              }
+            },
+          ),
+          Text(
+            "Innovative Design Services",
+            style: GoogleFonts.lexend(
+                color: Colors.white, fontWeight: FontWeight.w600, fontSize: 52),
+          ),
+          Text(
+            "At KYN Designs and Technologies, we transform ideas into stunning visuals, Our dedicated team crafts\ntailor-made designs that captivate and inspire. Discover our range of high quality printing solutions that\nelevates your brand's presence.",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.montserrat(
+              fontSize: 22,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Row(
+              children: [
+                Text(
+                  "We Offer: ",
+                  style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w400),
+                )
+              ],
+            ),
+          ),
+          Row(
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Navbar(),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 60),
-                    child: Text(
-                      "OUR SERVICES",
-                      style: GoogleFonts.rubikWetPaint(
-                          fontSize: 28, color: Colors.red),
-                    ),
-                  ),
-                  ServiceList(),
-                ],
-              ),
-              Text(
-                "Gallery",
-                style: GoogleFonts.poppins(color: Colors.red),
-              )
+              BulletText("Graphic Design"),
             ],
-          ),
-          Align(
-            alignment: AlignmentDirectional(0.98, 0.63),
-            child: Image.asset(
-              "gallery/size.jpg",
-              width: MediaQuery.of(context).size.width * 20 / 100,
-              height: MediaQuery.of(context).size.width * 90 / 100,
-              fit: BoxFit.contain,
-            ),
-          ),
-        ]),
-      ),
-    );
-  }
-}
-
-class ServiceList extends StatelessWidget {
-  const ServiceList({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(25),
-      margin: EdgeInsets.symmetric(horizontal: 25),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            spreadRadius: 5,
-            blurRadius: 10,
-            offset: Offset(0, 3),
-          ),
+          )
         ],
-      ),
-      child: Expanded(
-          child: Flexible(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "T-Shirt Printing",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Picture Printing",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Result Checking",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Online Registration",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Rubber Stamp",
-                  style: GoogleFonts.poppins(fontSize: 18),
-                ),
-                Text(
-                  "Picture Enlargement",
-                  style: GoogleFonts.poppins(fontSize: 18),
-                ),
-                Text(
-                  "Instant Passport Picture",
-                  style: GoogleFonts.poppins(fontSize: 18),
-                ),
-                Text(
-                  "Sign Post / Board",
-                  style: GoogleFonts.poppins(fontSize: 18),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Bussiness Card",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Bronchures",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Posters / Flyers",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Banners / Flexy",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "PVC ID Card Printing",
-                  style: GoogleFonts.poppins(fontSize: 18),
-                ),
-                Text(
-                  "Book Binding",
-                  style: GoogleFonts.poppins(fontSize: 18),
-                ),
-                Text(
-                  "Receipt / Invoice",
-                  style: GoogleFonts.poppins(fontSize: 18),
-                ),
-                Text(
-                  "Invitation cards",
-                  style: GoogleFonts.poppins(fontSize: 18),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Lamination",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Scanning",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Label",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Branding",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Graphic Design",
-                  style: GoogleFonts.poppins(fontSize: 18),
-                ),
-                Text(
-                  "Type & Printing",
-                  style: GoogleFonts.poppins(fontSize: 18),
-                ),
-                Text(
-                  "Photocopy",
-                  style: GoogleFonts.poppins(fontSize: 18),
-                ),
-                Text(
-                  "Mug Printing",
-                  style: GoogleFonts.poppins(fontSize: 18),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Certificates",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Large Format Printing",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Indenture",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Silk  Screen Development",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Etc...",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                      fontSize: 18),
-                ),
-              ],
-            ),
-          ],
-        ),
       )),
     );
   }
@@ -353,3 +142,284 @@ class ServiceList extends StatelessWidget {
   }
 }
 */
+
+class BulletText extends StatelessWidget {
+  final String text;
+
+  BulletText(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // Black dot bullet
+        Container(
+          margin: EdgeInsets.only(right: 8.0), // Spacing between dot and text
+          child: Icon(
+            Icons.circle, // Using a circle icon for the bullet
+            size: 8.0, // Size of the bullet
+            color: Colors.white, // Bullet color
+          ),
+        ),
+        // The text itself
+        Expanded(
+          child: Text(
+            text,
+            style: GoogleFonts.lexend(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              fontSize: 20,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+*/
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kyn_designs/custom/logs_navbar.dart';
+import 'package:kyn_designs/custom/navbar.dart';
+
+class ServicePage extends StatelessWidget {
+  ServicePage({super.key});
+
+  final List<String> services = [
+    "Graphics Design",
+    "Result Checking",
+    "Branding",
+    "Business Cards",
+    "Sign post / Boards",
+    "Type & Printing",
+    "Online Registrations",
+    "Large Format Printing",
+    "Brochures",
+    "Indentures",
+    "Photocopy",
+    "Lamination",
+    "PVC ID Card Printing",
+    "Posters / Flyers",
+    "Land Registration",
+    "Mug Printing",
+    "Scanning",
+    "Book Binding",
+    "Banners / Flexy",
+    "Silk Screen Development",
+    "T-Shirt Printing",
+    "Certificates",
+    "Receipt / Invoice",
+    "Picture Enlargement",
+    "Instant Picture",
+    "Picture Printing",
+    "Labels",
+    "Invitation Cards",
+    "Logo Design",
+    "Etc...",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFFCE792C),
+      body: SingleChildScrollView(
+        child: Stack(children: [
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 30),
+          //   child: Expanded(
+          //     flex: 2,
+          //     child: Align(
+          //       alignment: Alignment.bottomRight,
+          //       child: SizedBox(
+          //         height: MediaQuery.of(context).size.width * 95 / 100,
+          //         child: Image.asset(
+          //           'gallery/size.jpg',
+          //           fit: BoxFit.cover,
+          //           //width: MediaQuery.of(context).size.width * 20 / 100,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                StreamBuilder<User?>(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    // Display Navbars based on authentication state
+                    return snapshot.hasData ? Navbars() : Navbar();
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Innovative Design Services",
+                        style: GoogleFonts.lexend(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 52,
+                        ),
+                      ),
+                      Text(
+                        "At KYN Designs and Technologies, we transform ideas into stunning visuals. Our dedicated team crafts\ntailor-made designs that captivate and inspire. Discover our range of high quality printing solutions that\n elevate your brand's presence.",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(
+                          color: Colors.black,
+                          fontSize: 22,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Text(
+                                  "We Offer: ",
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      // Use Flexible to avoid overflow issues
+                      Row(
+                        children: [
+                          SizedBox(
+                              width:
+                                  MediaQuery.of(context).size.width * 60 / 100,
+                              height:
+                                  MediaQuery.of(context).size.height * 35 / 100,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 45),
+                                child: ServicesGridList(services: services),
+                              )),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Sample Graphics",
+                          style: GoogleFonts.montserrat(
+                              color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Image.asset('gallery/3d.png')
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ]),
+      ),
+    );
+  }
+}
+
+class BulletText extends StatelessWidget {
+  final String text;
+
+  BulletText(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(right: 8.0), // Spacing between dot and text
+          child: Icon(
+            Icons.circle,
+            size: 8.0,
+            color: Colors.white, // Bullet color matches background contrast
+          ),
+        ),
+        Expanded(
+          child: Text(
+            text,
+            style: GoogleFonts.lexend(
+              fontWeight: FontWeight.bold,
+              color: Colors.black, // Adjusted to white for better contrast
+              fontSize: 20,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ServiceItem extends StatelessWidget {
+  final String text;
+  const ServiceItem({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Icon(
+          Icons.circle,
+          size: 8.0,
+          color: Colors.white,
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            text,
+            style: GoogleFonts.montserrat(
+              color: text == "Etc..." ? Colors.red : Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ServicesGridList extends StatelessWidget {
+  final List<String> services;
+  const ServicesGridList({super.key, required this.services});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: services.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 5, // Number of columns
+        childAspectRatio: 8.3, // Adjust for better text fitting
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 40,
+      ),
+      itemBuilder: (context, index) {
+        return ServiceItem(text: services[index]);
+      },
+    );
+  }
+}

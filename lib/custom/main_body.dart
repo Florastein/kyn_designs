@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_popup_card/flutter_popup_card.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kyn_designs/login_page.dart';
 
 /*class Services extends StatelessWidget {
   const Services({super.key});
@@ -101,7 +103,27 @@ class Services extends StatelessWidget {
               width:
                   MediaQuery.of(context).size.width * 0.10), // Adjusted spacing
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              showPopupCard(
+                  context: context,
+                  builder: (context) {
+                    return PopupCard(
+                      elevation: 8,
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Logger(),
+                      ),
+                    );
+                  },
+                  offset: Offset(-16, 70),
+                  alignment: Alignment.center,
+                  useSafeArea: true,
+                  dimBackground: true);
+            },
             child: Card(
               color: Colors.orange,
               shadowColor: Colors.grey.withOpacity(0.4),

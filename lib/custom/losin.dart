@@ -90,7 +90,6 @@ class _LoggerState extends State<Logger> {
       return;
     }
 
-    String id = randomAlphaNumeric(10);
     Map<String, dynamic> userInfoMap = {
       "Username": _userNameController.text,
       "Email": _emailController.text,
@@ -98,6 +97,7 @@ class _LoggerState extends State<Logger> {
       "Location": _locationController.text,
       "Phone Number": _phoneNumberController.text.trim(),
       "Password": _password,
+      "role": "customer"
     };
 
     await DatabaseMethods()

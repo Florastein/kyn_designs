@@ -20,6 +20,24 @@ class UserActionsWidget extends StatefulWidget {
 }
 
 class _UserActionsWidgetState extends State<UserActionsWidget> {
+  final DatabaseMethods databaseMethods = DatabaseMethods();
+  String? username;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsername();
+  }
+
+  Future<void> fetchUsername() async {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    String? fetchedUsername = await databaseMethods.getUserName(uid);
+    setState(() {
+      username = fetchedUsername;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<int>(
@@ -27,7 +45,7 @@ class _UserActionsWidgetState extends State<UserActionsWidget> {
       child: Container(
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-            color: Colors.grey[300],
+            color: Colors.red,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
@@ -41,14 +59,15 @@ class _UserActionsWidgetState extends State<UserActionsWidget> {
             Icon(
               Icons.account_circle_rounded,
               size: 38,
-              color: Colors.black,
+              color: Colors.white,
             ),
             SizedBox(
-              width: 8,
+              width: 15,
             ),
+            username != null ? Text('$username') : CircularProgressIndicator(),
             Icon(
               CupertinoIcons.arrowtriangle_down_fill,
-              color: Colors.grey,
+              color: Colors.white,
               size: 18,
             )
           ],

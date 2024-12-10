@@ -207,28 +207,25 @@ import 'package:kyn_designs/pages/dashboard.dart';
 
 class DatabaseMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String? currentUsername; // Stores the username of the logged-in user
 
   Future<void> newRegistration(
       Map<String, dynamic> userInfoMap, String email, String password) async {
-    // Create user with email and password
     final credential = await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
 
-    // If successful, add user info to Firestore
+    String uid = credential.user!.uid;
     await FirebaseFirestore.instance
-        .collection("User")
-        .doc(credential.user?.uid) // Use FirebaseAuth UID as the document ID
+        .collection("users")
+        .doc(uid)
         .set(userInfoMap);
   }
 
   Stream<QuerySnapshot> getUserDetails() {
-    return FirebaseFirestore.instance.collection("User").snapshots();
+    return FirebaseFirestore.instance.collection("users").snapshots();
   }
 
-  // Sign-in method to integrate with Firebase Auth and retrieve username
   Future<void> signUserIn(
       BuildContext context,
       TextEditingController emailController,
@@ -245,23 +242,8 @@ class DatabaseMethods {
         });
 
     try {
-      // Attempt to sign in
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
-
-      // Retrieve username from Firestore
-      String uid = userCredential.user?.uid ?? '';
-      if (uid.isNotEmpty) {
-        DocumentSnapshot userDoc =
-            await FirebaseFirestore.instance.collection("User").doc(uid).get();
-
-        // Store the username
-        currentUsername =
-            userDoc.get('Username'); // Assuming "Username" is the field name
-      } else {
-        currentUsername = null;
-      }
-
       Navigator.pop(context);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Dashboard()));
@@ -311,27 +293,18 @@ class DatabaseMethods {
         });
   }
 
-  // Getter to access current username from other classes
-  String? get getCurrentUsername => currentUsername;
+  Future<String?> getUserName(String uid) async {
+    DocumentSnapshot snapshot =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+  }
 
-  Future<String?> fetchUsernameByEmail(String email) async {
-    try {
-      // Query Firestore for a user document where the Email field matches
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection("User")
-          .where("Email", isEqualTo: email)
-          .get();
+  Future<String?> getUserRole(String uid) async {
+    DocumentSnapshot snapshot =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
-      if (snapshot.docs.isNotEmpty) {
-        // Get the "Fullname" field from the first matching document
-        return snapshot.docs.first.get("Fullname") as String?;
-      } else {
-        return null; // Return null if user is not found
-      }
-    } catch (e) {
-      // Handle any errors here
-      print("Error retrieving username: $e");
-      return null;
+    if (snapshot.exists) {
+      return snapshot['role']; // Returns the role
     }
+    return null;
   }
 }

@@ -378,7 +378,7 @@ class _NavbarState extends State<Navbar> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ServicePage()),
+          MaterialPageRoute(builder: (context) => ServicePage()),
         );
         break;
       case 2:
