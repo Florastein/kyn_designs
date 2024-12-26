@@ -50,6 +50,7 @@ dependencies:
   font_awesome_flutter: ^10.7.0
   unicons: ^3.0.0
   supabase_flutter: ^2.8.1
+  flutter_admin_scaffold: ^1.4.0
 
 dev_dependencies:
   flutter_test:

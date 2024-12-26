@@ -17,11 +17,11 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
         body: Column(
       children: [
-        Navbar(),
+        const Navbar(),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.1,
         ),
-        Logger()
+        const Logger()
       ],
     ));
   }
@@ -116,9 +116,7 @@ class _ForedState extends State<Fored> {
     final PhoneVerificationCompleted verificationCompleted =
         (PhoneAuthCredential credential) async {
       await _auth.signInWithCredential(credential);
-      // Navigate to the next page after successful login
-      Navigator.pushReplacementNamed(
-          context, '/home'); // Change '/home' to your target route
+      Navigator.pushReplacementNamed(context, '/home');
     };
 
     final PhoneVerificationFailed verificationFailed =
@@ -158,9 +156,7 @@ class _ForedState extends State<Fored> {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: _verificationId, smsCode: smsCode);
       await _auth.signInWithCredential(credential);
-      // Navigate to the next page after successful login
-      Navigator.pushReplacementNamed(
-          context, '/home'); // Change '/home' to your target route
+      Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
       setState(() {
         _errorMessage = e.toString();
@@ -176,7 +172,7 @@ class _ForedState extends State<Fored> {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          const Icon(
             CupertinoIcons.lock_fill,
             size: 64,
             color: Colors.red,
@@ -198,7 +194,7 @@ class _ForedState extends State<Fored> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.min,
               children: [
-                myDropDownMenu(),
+                const myDropDownMenu(),
                 Expanded(
                   child: TextField(
                     controller: _phoneController,
@@ -232,17 +228,17 @@ class _ForedState extends State<Fored> {
             GestureDetector(
               onTap: _verifyPhoneNumber,
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     color: Colors.red, borderRadius: BorderRadius.circular(10)),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.send,
                       color: Colors.white,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
@@ -642,7 +638,7 @@ class _LoggerState extends State<Logger> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     // Define breakpoints
-    const mobileBreakpoint = 480.0;
+    const mobileBreakpoint = 550.0;
     const tabletBreakpoint = 768.0;
 
     double containerWidth;
@@ -656,12 +652,12 @@ class _LoggerState extends State<Logger> {
       fontSize = 16;
     } else if (screenWidth <= tabletBreakpoint) {
       // Tablet layout
-      containerWidth = screenWidth * 0.6;
+      containerWidth = screenWidth * 0.7;
       logoSize = screenWidth * 0.3;
       fontSize = 20;
     } else {
       // Desktop layout
-      containerWidth = screenWidth * 0.3;
+      containerWidth = screenWidth * 0.25;
       logoSize = screenWidth * 0.2;
       fontSize = 24;
     }
@@ -748,7 +744,7 @@ class _LoggerState extends State<Logger> {
                   elevation: 4,
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   backgroundColor: Colors.red,
                 ),
@@ -817,7 +813,7 @@ class _LoggerState extends State<Logger> {
             style: GoogleFonts.poppins(
               color: Colors.orange,
               fontWeight: FontWeight.bold,
-              fontSize: fontSize * 0.5,
+              fontSize: 14,
             ),
           ),
         ),

@@ -233,7 +233,7 @@ class DatabaseMethods {
     showDialog(
         context: context,
         builder: (context) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(
               color: Colors.orange,
               strokeWidth: 10,
@@ -274,12 +274,12 @@ class DatabaseMethods {
             content: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
+                const Icon(
                   Icons.error,
                   color: Colors.white,
                   size: 48,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     message,

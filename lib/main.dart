@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kyn_designs/home.dart';
 import 'package:kyn_designs/login_page.dart';
+import 'package:kyn_designs/pages/dashboard.dart';
 import 'package:kyn_designs/service/auth_page.dart';
 import 'package:kyn_designs/service_page.dart';
 import 'package:kyn_designs/sign_up.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: HomePage(),
+      home: Dashboard(),
       debugShowCheckedModeBanner: false,
     );
   }

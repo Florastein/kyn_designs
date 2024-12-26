@@ -9,7 +9,8 @@ import 'package:kyn_designs/pages/dashboard.dart';
 import 'package:kyn_designs/service_page.dart';
 
 class Navbars extends StatefulWidget {
-  const Navbars({super.key});
+  final Color color;
+  const Navbars({super.key, this.color = Colors.transparent});
 
   @override
   State<Navbars> createState() => _NavbarState();
@@ -24,9 +25,10 @@ class _NavbarState extends State<Navbars> {
 
     // Define breakpoints
     const mobileBreakpoint = 480.0;
-    const tabletBreakpoint = 768.0;
+    const tabletBreakpoint = 1055.0;
 
     return Container(
+      color: widget.color,
       width: screenWidth * 0.95,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: screenWidth >= tabletBreakpoint
@@ -55,7 +57,7 @@ class _NavbarState extends State<Navbars> {
     return Row(
       children: [
         Image.asset('images/logo.png', height: 64, width: 64),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         Text(
           "KYN DESIGNS & TECH",
           style: GoogleFonts.poppins(
@@ -129,7 +131,7 @@ class _NavbarState extends State<Navbars> {
               Align(
                 alignment: Alignment.topRight,
                 child: IconButton(
-                  icon: Icon(Icons.close, color: Colors.black),
+                  icon: const Icon(Icons.close, color: Colors.black),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -140,7 +142,7 @@ class _NavbarState extends State<Navbars> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.account_circle_rounded),
+                  const Icon(Icons.account_circle_rounded),
                   UserActionsWidget(
                     onEditAccount: _editAccountDetails,
                     onLogout: _logOut,
@@ -156,7 +158,13 @@ class _NavbarState extends State<Navbars> {
   }
 
   List<Widget> _buildMenuListItems() {
-    const menuItems = ['Home', 'Services', 'About Us', 'Contact', 'Dashboard'];
+    const menuItems = [
+      'Home',
+      'Services',
+      'Dashboard',
+      'About Us',
+      'Contact',
+    ];
     return List.generate(menuItems.length, (index) {
       return ListTile(
         title: Text(menuItems[index],
@@ -193,7 +201,7 @@ class _NavbarState extends State<Navbars> {
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const AboutUsPage()),
+          MaterialPageRoute(builder: (context) => Dashboard()),
         );
         break;
       case 3:
@@ -206,7 +214,7 @@ class _NavbarState extends State<Navbars> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Dashboard(),
+            builder: (context) => const AboutUsPage(),
           ),
         );
         break;
@@ -220,7 +228,7 @@ class _NavbarState extends State<Navbars> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => HomePage(),
+        builder: (context) => const HomePage(),
       ),
     );
   }
