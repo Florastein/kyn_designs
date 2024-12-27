@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kyn_designs/dashboard_pages/dashboard_content.dart';
 import 'package:unicons/unicons.dart';
 
 class Dashboard extends StatefulWidget {
@@ -12,14 +14,34 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
+
+   int _selectedIndex = 0;
+
+  // List of widgets representing the body for each sidebar item
+  final List<Widget> _pages = [
+    const DashboardContent(),
+    const Center(child: Text('Orders')),
+    const Center(child: Text('Files')),
+    const Center(child: Text('Templates')),
+    const Center(child: Text('Settings')),
+    
+  ];
+
+  void _onMenuItemSelected(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return AdminScaffold(
-      sideBar: SideBar(
+      sideBar: 
+      SideBar(
         backgroundColor: Colors.white,
         activeBackgroundColor: Colors.orange,
         textStyle: GoogleFonts.montserrat(fontSize: 18),
-        items: [
+        items: const [
           AdminMenuItem(
               title: "Home",
               icon: CupertinoIcons.home,
@@ -30,16 +52,29 @@ class _DashboardState extends State<Dashboard> {
               title: "Templates", icon: CupertinoIcons.layers_alt_fill),
           AdminMenuItem(title: "Settings", icon: Icons.settings)
         ],
-        selectedRoute: '/',
+        selectedRoute: '', // Set the selected route to an empty string
+        onSelected: (item) {
+          // Handle sidebar item selection
+          final index = [
+            'Home',
+            'Orders',
+            'Files',
+            'Templates',
+            'Settings',
+          ].indexOf(item.title);
+          if (index != -1) {
+            _onMenuItemSelected(index);
+          }
+        },
         footer: Column(
           children: [
             GestureDetector(
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
-                padding: EdgeInsets.all(16),
-                child: Row(
+                padding: const EdgeInsets.all(16),
+                child: const Row(
                   children: [
                     Icon(Icons.person_2),
                     SizedBox(
@@ -52,9 +87,9 @@ class _DashboardState extends State<Dashboard> {
             ),
             GestureDetector(
               child: Container(
-                decoration: BoxDecoration(color: Colors.white),
-                padding: EdgeInsets.all(16),
-                child: Row(
+                decoration: const BoxDecoration(color: Colors.white),
+                padding: const EdgeInsets.all(16),
+                child: const Row(
                   children: [
                     Icon(Icons.logout),
                     SizedBox(
@@ -70,17 +105,11 @@ class _DashboardState extends State<Dashboard> {
         header: SizedBox(
           height: MediaQuery.of(context).size.height * 0.10,
           child: Container(
-            decoration: BoxDecoration(color: Colors.white),
+            decoration: const BoxDecoration(color: Colors.white),
           ),
         ),
       ),
-      body: Container(
-        margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.grey[200],
-        ),
-      ),
+      body: _pages[_selectedIndex],
     );
   }
 }
