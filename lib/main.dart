@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: ServicePage(),
+      home: Dashboard(),
       debugShowCheckedModeBanner: false,
     );
   }
