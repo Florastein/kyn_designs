@@ -224,7 +224,7 @@ class ServicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFCE792C),
+      //backgroundColor: Color(0xFFCE792C),
       body: SingleChildScrollView(
         child: Stack(children: [
           // Padding(
@@ -261,13 +261,15 @@ class ServicePage extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
+                      Image.asset('gallery/3d.png'),
                       Text(
                         "Innovative Design Services",
                         style: GoogleFonts.lexend(
-                          color: Colors.white,
+                          color: Colors.black26,
                           fontWeight: FontWeight.w600,
                           fontSize: 52,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                       Text(
                         "At KYN Designs and Technologies, we transform ideas into stunning visuals. Our dedicated team crafts\ntailor-made designs that captivate and inspire. Discover our range of high quality printing solutions that\n elevate your brand's presence.",
@@ -277,55 +279,17 @@ class ServicePage extends StatelessWidget {
                           fontSize: 22,
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Text(
-                                  "We Offer: ",
-                                  style: GoogleFonts.montserrat(
-                                    color: Colors.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      // Use Flexible to avoid overflow issues
-                      Row(
-                        children: [
-                          SizedBox(
-                              width:
-                                  MediaQuery.of(context).size.width * 60 / 100,
-                              height:
-                                  MediaQuery.of(context).size.height * 35 / 100,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 45),
-                                child: ServicesGridList(services: services),
-                              )),
-                        ],
-                      ),
                       SizedBox(
                         height: 25,
                       ),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Sample Graphics",
+                          "Our Services",
                           style: GoogleFonts.montserrat(
-                              color: Colors.white, fontSize: 24),
+                              color: Colors.black26, fontSize: 24),
                         ),
                       ),
-                      Image.asset('gallery/3d.png')
                     ],
                   ),
                 ),
@@ -338,7 +302,7 @@ class ServicePage extends StatelessWidget {
   }
 }
 
-class BulletText extends StatelessWidget {
+/*class BulletText extends StatelessWidget {
   final String text;
 
   BulletText(this.text);
@@ -422,4 +386,4 @@ class ServicesGridList extends StatelessWidget {
       },
     );
   }
-}
+}*/

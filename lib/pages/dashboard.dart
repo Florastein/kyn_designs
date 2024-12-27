@@ -12,6 +12,8 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  String id = "dashboard";
+
   @override
   Widget build(BuildContext context) {
     return AdminScaffold(
@@ -23,8 +25,9 @@ class _DashboardState extends State<Dashboard> {
           AdminMenuItem(
               title: "Home",
               icon: CupertinoIcons.home,
-              route: '/DashboardContent'),
-          AdminMenuItem(title: "Orders", icon: CupertinoIcons.printer),
+              route: 'DashboardContent'),
+          AdminMenuItem(
+              title: "Orders", icon: CupertinoIcons.printer, route: ''),
           AdminMenuItem(title: "Files", icon: CupertinoIcons.doc_fill),
           AdminMenuItem(
               title: "Templates", icon: CupertinoIcons.layers_alt_fill),
